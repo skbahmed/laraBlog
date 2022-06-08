@@ -1,0 +1,138 @@
+@media only screen and (max-width: 1200px) {
+    .layout-2,
+    footer .row {
+        flex-wrap: wrap;
+    }
+    .col-8, .col-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .categories-item a, .post-item article,
+    .footer-item  {
+        width: calc(50% - 1rem);
+    }
+    .categories-item, .post-item {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .col-3 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .col-3:nth-child(3) {
+        flex: 0 0 100%;
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+@media only screen and (max-width: 1080px) {
+    .grid-text .display-1 {
+        font-size: 2rem;
+    }
+    .toggle-button {
+        display: initial;
+    }
+    .toggle .line2 {
+        transform: rotate(60deg) translate(-3%, 180%);
+    }
+    .toggle .line3 {
+        transform: rotate(-60deg) translate(32%, 70%);
+    }
+    .collapse {
+        max-height: 0;
+        margin-top: 0;
+        overflow: hidden;
+        transition: all .3s ease-in-out;
+    }
+    .collapse .nav-link {
+        display: block;
+        text-align: center;
+    }
+    .collapse-toggle {
+        max-height: 50rem;
+    }
+    .navbar {
+        flex-direction: column;
+    }
+    .navbar.small-navbar {
+        flex-direction: row;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .grid-text .display-1 {
+        font-size: 1.65rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .row {
+        flex-wrap: wrap;
+    }
+    .post-tags-input, .post-category-input{
+        width: 100%;
+    }
+    .grid-text .display-1 {
+        font-size: 1.8rem;
+    }
+    .grid {
+        columns: 2;
+    }
+    .swiper-button-next, .swiper-button-prev {
+        display: none;
+    }
+    .next-prev-toggler {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+    .col-3, .categories-item a, .post-item article, .footer-item {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .post-footer .comment-reply {
+        padding-left: 4em;
+    }
+    .footer-title {
+        text-align: center;
+    }
+    .tags div {
+        justify-content: center;
+    }
+    .allCategories a {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 574px) {
+    .navbar-nav{
+        flex-flow: column;
+    }
+    .navbar.small-navbar .navbar-nav{
+        flex-flow: row;
+    }
+    .search-box {
+        border-right: none;
+    }
+    .grid {
+        columns: 1;
+    }
+    .grid-text .display-1 {
+        font-size: 2.2rem;
+    }
+    .post-footer .comment-reply {
+        padding-left: 2em;
+    }
+    .post-footer .rounded {
+        width: 8rem;
+        height: 8rem;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .navbar.small-navbar .nav-link i{
+        display: none;
+    }
+}
