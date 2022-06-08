@@ -8,6 +8,7 @@ use App\Models\Navbar;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -50,14 +51,14 @@ class UserController extends Controller
         $user->image = $imageName;
 
         $user->email = $request->userEmail;
-        $user->password = $request->userPass;
+        $user->password = Hash::make($request->userPass);
+
         $user->save();
 
         $userId = $user->id;
         $userName = $user->name;
         $userImage = $user->image;
         Session::put('userData', ['userId' => $userId, 'userName' => $userName, 'userImage' => $userImage]);
-        // Session::put('userId', $userId);
 
         return redirect('/');
     }
@@ -77,19 +78,22 @@ class UserController extends Controller
         $userEmail = $request->userEmail;
         $userPassword = $request->userPass;
 
-        $authUserData = User::where('email', $userEmail)->where('password', $userPassword)->first();
-        if($authUserData)
-        {
-            $authUserId = $authUserData->id;
-            $authUserName = $authUserData->name;
-            $authUserImage = $authUserData->image;
-            Session::put('userData', ['userId' => $authUserId, 'userName' => $authUserName, 'userImage' => $authUserImage]);
-            // Session::put('userId', $authUserId);
+        $authUserData = User::where('email', $userEmail)->first(); //////////////-> where($userPassword, 'password')
+
+        if($authUserData!=Null){
+            $hashedPassword = $authUserData->password;
+
+            if (Hash::check($userPassword, $hashedPassword)) {
+                $authUserId = $authUserData->id;
+                $authUserName = $authUserData->name;
+                $authUserImage = $authUserData->image;
+                Session::put('userData', ['userId' => $authUserId, 'userName' => $authUserName, 'userImage' => $authUserImage]);
             
-            return redirect('/');
-        }
-        else
-        {
+                return redirect('/');
+            }else{
+                return back();
+            }
+        }else{
             return back();
         }
     }
