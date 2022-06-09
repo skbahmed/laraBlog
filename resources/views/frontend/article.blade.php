@@ -18,8 +18,8 @@
                             </div>
                             <div class="meta">
                                 <a href="#" class="link display-2 text-secondary text-capitalize px-1"><i class="fas fa-user text-primary pr-1"></i>{{ $postAuthor->name }}</a>
-                                <a href="#" class="link display-2 text-secondary px-1"><i class="fas fa-clock text-primary pr-1"></i> {{ $post->created_at }}</a>
-                                <a href="#" class="link display-2 text-secondary px-1"><i class="fas fa-comments text-primary pr-1"></i> 12</a>
+                                <a href="#" class="link display-2 text-secondary px-1"><i class="fas fa-clock text-primary pr-1"></i>{{ $post->created_at }}</a>
+                                <a href="#" class="link display-2 text-secondary px-1"><i class="fas fa-comments text-primary pr-1"></i>{{ $post->commentCount }}</a>
                             </div>
                         </div>
                         <div class="mt-3">
@@ -95,63 +95,55 @@
                             </div>
                         </div>
                         <div class="post-comments py-2">
-                            <h3 class="text-center display-1 secondary-title py-2 text-capitalize">5 comments</h3>
+                            @if ($post->commentCount < 1)
+                                <h3 class="text-center display-1 secondary-title py-2 text-capitalize">no available comment</h3>
+                            @elseif ($post->commentCount == 1)
+                                <h3 class="text-center display-1 secondary-title py-2 text-capitalize">{{ $post->commentCount }} comment</h3>
+                            @else
+                                <h3 class="text-center display-1 secondary-title py-2 text-capitalize">{{ $post->commentCount }} comments</h3>
+                            @endif
                             <div class="comment-details">
-                                <div class="comment-item py-3">
-                                    <div class="d-flex">
-                                        <div class="avatar px-2">
-                                            <img src="{{ asset('storage/frontend/images/face/face1.jpg') }}" alt="" class="rounded">
-                                        </div>
-                                        <div class="comment-content">
-                                            <h5 class="display-2 text-capitalize">Commenter name</h5>
-                                            <p class="title-secondary text-dark my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus voluptatum, pariatur nihil facere quas tenetur expedita ea amet accusamus, quo veritatis quam minus laudantium excepturi.</p>
-                                        </div>
-                                    </div>
-                                    <div class="comment-reply py-2">
-                                        <div class="d-flex">
-                                            <div class="avatar px-2">
-                                                <img src="{{ asset('storage/frontend/images/face/face2.jpg') }}" alt="" class="rounded">
+                                @foreach ($postComments as $postComment)
+                                    <div class="comment-item pt-3">
+                                        <div class="d-flex align-center">
+                                            <div class="commenter-avatar pr-2">
+                                                <img src="{{ asset('storage/frontend/images/users/'.$postComment->commenter_image) }}" alt="" class="rounded">
                                             </div>
                                             <div class="comment-content">
-                                                <h5 class="display-2 text-capitalize">replyer name</h5>
-                                                <p class="title-secondary text-dark my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus voluptatum, pariatur nihil facere quas tenetur expedita ea amet accusamus, quo veritatis quam minus laudantium excepturi.</p>
+                                                <h5 class="display-2 text-capitalize">{{ $postComment->commenter_name }}</h5>
+                                                <pre><p class="title-secondary text-dark my-2">{{ $postComment->comment }}</p></pre>
                                             </div>
                                         </div>
+                                        <div class="comment-reply">
+                                            
+                                            <div class="d-flex align-center">
+                                                <div class="commenter-avatar pr-2">
+                                                    <img src="{{ asset('storage/frontend/images/face/face2.jpg') }}" alt="" class="rounded">
+                                                </div>
+                                                <div class="comment-content">
+                                                    <h5 class="display-2 text-capitalize">replyer name</h5>
+                                                    <p class="title-secondary text-dark my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus voluptatum, pariatur nihil facere quas tenetur expedita ea amet accusamus, quo veritatis quam minus laudantium excepturi.</p>
+                                                </div>
+                                            </div>
+                                            <form action="{{ url('/articles/store-reply') }}" method="post" class="mt-2 comment-reply-form">
+                                                @csrf
+                                                <div class="d-flex justify-content-between">
+                                                    <input type="text" class="form-control" name="repliedCommentId" value="{{ $postComment->id }}" hidden>
+                                                    <textarea class="form-control comment-reply-message" name="replyMessage" placeholder="Reply to this comment" required></textarea>
+                                                    <button type="submit" class="btn bg-gradient text-light"><i class="fas fa-paper-plane"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <form action="#" method="post" class="mt-3">
-                                        <div class="d-flex justify-content-between flex-wrap">
-                                            <textarea class="form-control comment-reply-message" placeholder="Reply to this comment" required></textarea>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn bg-gradient display-2 text-light mt-3">reply comment</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="comment-item py-3">
-                                    <div class="d-flex">
-                                        <div class="avatar px-2">
-                                            <img src="{{ asset('storage/frontend/images/face/face3.jpg') }}" alt="" class="rounded">
-                                        </div>
-                                        <div class="comment-content">
-                                            <h5 class="display-2 text-capitalize">Commenter name</h5>
-                                            <p class="title-secondary text-dark my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus voluptatum, pariatur nihil facere quas tenetur expedita ea amet accusamus, quo veritatis quam minus laudantium excepturi.</p>
-                                        </div>
-                                    </div>
-                                    <form action="#" method="post" class="mt-3">
-                                        <div class="d-flex justify-content-between flex-wrap">
-                                            <textarea class="form-control comment-reply-message" placeholder="Reply to this comment" required></textarea>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn bg-gradient display-2 text-light mt-3">reply comment</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                @endforeach
                             </div>
                             <div class="comment-form mt-3">
-                                <h3 class="text-center display-1 secondary-title py-2 text-capitalize">leave comment</h3>
-                                <form action="#" method="post">
+                                <h3 class="text-center display-1 secondary-title py-2 text-capitalize">leave a comment</h3>
+                                <form action="{{ url('/articles/store-comment') }}" method="post">
+                                    @csrf
                                     <div class="d-flex justify-content-between flex-wrap">
-                                        <textarea class="form-control my-1 comment-message" placeholder="write your opinion here..." required></textarea>
+                                        <input type="text" class="form-control" name="commentedPostId" value="{{ $post->id }}" hidden>
+                                        <textarea class="form-control my-1 comment-message" name="commentMessage" placeholder="write your opinion here..." required></textarea>
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn bg-gradient display-2 text-light mt-3">Share your comment</button>
@@ -174,7 +166,7 @@
                                 @endforeach
                             </div>
                         </section>
-                        <section class="trending-post mt-3">
+                        <section class="related-post mt-3">
                             <h2 class="text-center text-capitalize text-dark my-2">related post</h2>
                             <div class="post-item py-1">
                                 @foreach ($relatedPosts as $relatedPost)

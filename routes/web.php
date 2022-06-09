@@ -18,6 +18,8 @@ Route::get('/articles/{post_id}', [PostController::class, 'show']); ////////////
 Route::get('/articles/category/{category_id}' , [PostController::class, 'filterCategoryPost']); ///filter post
 Route::post('/store', [PostController::class, 'store']); //////////////////////////////////////create new post
 Route::get('/categories', [PostController::class, 'showCategory']); ///////////////////////////view all categories
+Route::post('/articles/store-comment', [PostController::class, 'storeComment']); //////////////store a new comment
+Route::post('/articles/store-reply', [PostController::class, 'storeReply']); //////////////store a new comment
 
 
 Route::get('/profile', [UserController::class, 'index']); /////////////////////////////////////view user profile page

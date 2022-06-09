@@ -8,7 +8,7 @@
         <section class="user">
             <div class="container">
                 <div class="user-details text-center px-2 py-3 mb-3 box-shadow">
-                    <div class="author-avatar">
+                    <div class="user-avatar">
                         <img src="{{ asset('storage/frontend/images/users/'.Session::get('userData')['userImage']) }}" alt="" class="rounded">
                     </div>
                     <div class="py-2">

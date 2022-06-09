@@ -17,6 +17,7 @@ class Post extends Model
         'postContent',
         'postTags',
         'postCategoryId',
-        'authorId'
+        'authorId',
+        'commentCount'
     ]; //now I can use shortcut on PostController store function
 }

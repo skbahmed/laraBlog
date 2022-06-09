@@ -11,11 +11,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Comment;
+use App\Models\CommentReply;
 
 class PostController extends Controller
 {
-    
-
     public function index()
     {
         $sessionData = Session::get('userData');
@@ -72,6 +72,8 @@ class PostController extends Controller
             $authorId = $post->authorId;
             $postAuthor = User::find($authorId);
 
+            $postComments = Comment::where('commented_on', $post_id)->orderBy('id', 'desc')->get();
+
             $allPosts = Post::orderBy('id','desc')->get();
             $adminPosts = Post::where('authorId', 1)->orderBy('id', 'desc')->get(); //where admin id = 1;
             $relatedPosts = Post::where('postCategoryId', $post->postCategoryId)->where('id','!=', $post->id)->get();
@@ -82,21 +84,20 @@ class PostController extends Controller
             if($post->id > $postMinId){
                 $prevPost = Post::where('id', '<', $post->id)->orderBy('id','desc')->first();
                 $prevPostCategory = PostCategory::find($prevPost->postCategoryId);
+            }else{
+                $prevPost = 'no data';
+                $prevPostCategory = 'no data';
             }
             if($post->id < $postMaxId){
                 $nextPost = Post::where('id', '>', $post->id)->orderBy('id')->first();
                 $nextPostCategory = PostCategory::find($nextPost->postCategoryId);
+            }else{
+                $nextPost = 'no data';
+                $nextPostCategory = 'no data';
             }
 
-            if($post->id > $postMinId AND $post->id < $postMaxId){
-                return view('frontend.article', compact('post', 'postAuthor', 'postCategory', 'nextPost', 'nextPostCategory', 'prevPost', 'prevPostCategory', 'postMaxId', 'postMinId', 'postCategories', 'navBars', 'relatedPosts', 'allPosts', 'adminPosts'));
-            }
-            elseif($post->id <= $postMinId){
-                return view('frontend.article', compact('post', 'postAuthor', 'postCategory', 'nextPost', 'nextPostCategory', 'postMaxId', 'postMinId', 'postCategories', 'navBars', 'relatedPosts', 'allPosts', 'adminPosts'));
-            }
-            elseif($post->id >= $postMaxId){
-                return view('frontend.article', compact('post', 'postAuthor', 'postCategory', 'prevPost', 'prevPostCategory', 'postMaxId', 'postMinId', 'postCategories', 'navBars', 'relatedPosts', 'allPosts', 'adminPosts'));
-            }
+            return view('frontend.article', compact('post', 'postAuthor', 'postCategory', 'nextPost', 'nextPostCategory', 'prevPost', 'prevPostCategory', 'postMaxId', 'postMinId', 'postComments', 'postCategories', 'navBars', 'relatedPosts', 'allPosts', 'adminPosts'));
+
         }else{
             return redirect('/login');
         }
@@ -134,6 +135,44 @@ class PostController extends Controller
         }
     }
 
+    public function storeComment(Request $request)
+    {
+        $sessionData = Session::get('userData');
+        if($sessionData !=Null){
+            $commentModel = new Comment;
+            $commentModel->comment = $request->commentMessage;
+            $commentModel->commented_on = $request->commentedPostId; //post id
+            $commentModel->commenter_name = $sessionData['userName'];
+            $commentModel->commenter_image = $sessionData['userImage'];
+        
+            $commentModel->save();
+            if($commentModel->save()){
+                Post::where('id', $request->commentedPostId)->increment('commentCount');
+            }
+
+            return back();
+        }else{
+            return redirect('/login');
+        }
+    }
+
+    public function storeReply(Request $request)
+    {
+        $sessionData = Session::get('userData');
+        if($sessionData !=Null){
+            $replyModel = new CommentReply;
+            $replyModel->reply = $request->replyMessage;
+            $replyModel->replied_on = $request->repliedCommentId; //comment id
+            $replyModel->replier_name = $sessionData['userName'];
+            $replyModel->replier_image = $sessionData['userImage'];
+        
+            $replyModel->save();
+
+            return back();
+        }else{
+            return redirect('/login');
+        }
+    }
     
     public function edit(Post $post)
     {

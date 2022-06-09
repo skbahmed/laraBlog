@@ -13,23 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-
-            $table->text('postTitle');
-            $table->text('postImage');
-            $table->text('postContent');
-            $table->text('postTags');
-            $table->string('postCategoryId');
-            $table->string('authorId');
-
+            $table->text('comment');
+            $table->string('commented_on'); //post id
+            $table->string('commenter_name');
+            $table->text('commenter_image');
             $table->timestamps();
         });
     }
 
-    
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('comments');
     }
 };

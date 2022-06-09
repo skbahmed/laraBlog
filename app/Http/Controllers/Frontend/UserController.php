@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     public function index()
-    {   
+    {
         $sessionData = Session::get('userData');
         if($sessionData !=Null){
             $navBars = Navbar::all();
