@@ -7,7 +7,7 @@
         <section class="sign-up">
             <div class="container">
                 <h2 class="secondary-title text-capitalize text-center mb-3">Create a new account</h2>
-                <form action="{{ url('create') }}" method="POST" class="sign-up-form" enctype="multipart/form-data">
+                <form action="{{ url('profile/create') }}" method="POST" class="sign-up-form" enctype="multipart/form-data">
                     @csrf
                     <div class="d-flex justify-content-between flex-wrap">
                         <input type="text" class="form-control my-1 user-name" name="userName" placeholder="Enter your name" required>
@@ -21,7 +21,7 @@
                 </form>
                 <div class="text-center mt-3 signup-login-toggler">
                     <span class="text-secondary">Already have an account?</span>
-                    <a href="{{ 'login' }}" class="link">Click here to login</a>
+                    <a href="{{ '/profile/login' }}" class="link">Click here to login</a>
                 </div>
             </div>
         </section>

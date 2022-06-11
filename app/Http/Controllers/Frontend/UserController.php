@@ -26,7 +26,7 @@ class UserController extends Controller
 
             return view('frontend.profile', compact('navBars', 'allPosts', 'adminPosts', 'postCategories', 'userPosts'));
         }else{
-            return redirect('/login');
+            return redirect('/profile/login');
         }
     }
 
@@ -101,6 +101,6 @@ class UserController extends Controller
     public function destroy()
     {
         Session::forget('userData');
-        return redirect('/login');
+        return redirect('/profile/login');
     }
 }

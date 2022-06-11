@@ -83,3 +83,13 @@ postForm = document.querySelector('.post-form');
 postToggler.onclick =()=>{
     postForm.classList.toggle('active-post-form');
 }
+
+/* ------------------- */
+/* ACTIVATE REPLY FORM ON CLICK */
+/* ------------------- */
+let replyToggler = document.querySelector('.reply-toggler'),
+replyForm = document.querySelector('.comment-reply-form');
+
+replyToggler.onclick =()=>{
+    replyForm.classList.toggle('active-reply-form');
+}

@@ -2,6 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Poppins&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&family=Nunito:wght@200;300;400;500;600;700&display=swap');
 
+/* ========== BANGLA FONT ========== */
+@import url('https://fonts.maateen.me/bangla/font.css');
+@import url('https://cdn.rawgit.com/sh4hids/bangla-web-fonts/bensen-handwriting/stylesheet.css');
+@import url('https://fonts.maateen.me/siyam-rupali/font.css');
+@import url('https://fonts.maateen.me/kalpurush/font.css');
+
 /* ========== ROOT STYLING ========== */
 :root {
     --light: #f8f9fa;
@@ -33,7 +39,7 @@ html {
     scroll-behavior: smooth;
 }
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', 'Kalpurush', sans-serif !important;
     font-size: 1.6rem;
 }
 a {
@@ -53,12 +59,13 @@ pre {
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', 'Kalpurush', sans-serif !important;
     line-height: 2.2rem;
 }
 
 /* ========== GLOBAL STYLING ========== */
 /* BUTTON */
+
 .btn {
     padding: 1rem 2rem;
     border: none;
@@ -122,7 +129,7 @@ main {
     border: .2rem solid var(--border);
     padding: 1em;
     font-size: 1.8rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Kalpurush', sans-serif;
     border-radius: .5rem;
 }
 .big-first-letter::first-letter {
@@ -132,10 +139,11 @@ main {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .2rem;
+    margin-left: .5rem;
 }
 /* FONT*/
 .text-title {
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'BenSenHandwriting', 'Libre Baskerville', serif;
     font-weight: 600;
     letter-spacing: .13rem;
     line-height: 3rem;
@@ -365,6 +373,7 @@ header {
     color: var(--dark);
     font-family: 'Poppins', sans-serif;
     text-transform: capitalize;
+    cursor: pointer;
 }
 .nav-link:hover, .link:hover,
 .collapse .active {
@@ -430,23 +439,11 @@ header {
 .post-form.post-from-profile{
     height: 60rem;
 }
-.post-content, .comment-message, .comment-reply-message{
-    max-height: 10rem;
-    min-height: 10rem;
+.post-content{
+    max-height: 20rem;
+    min-height: 20rem;
     max-width: 100%;
     min-width: 100%;
-}
-.comment-reply-message {
-    max-height: 6.2rem;
-    min-height: 6.2rem;
-    max-width:  calc(100% - 7rem);
-    min-width: calc(100% - 7rem);
-    border-radius: .5rem 0 0 .5rem;
-}
-.comment-reply-form button{
-    font-size: 2rem;
-    width: 6.5rem;
-    border-radius: 0 .5rem .5rem 0;
 }
 .post-tags-input, .post-category-input{
     width: calc(50% - 1rem);
@@ -553,7 +550,7 @@ span i {
 
 /* ARTICLE SECTION */
 .article-column {
-    padding: 0 2rem;
+    padding: 0 1rem;
 }
 #post {
     max-height: calc(100vh - 6rem);
@@ -590,6 +587,31 @@ span i {
 .next article{
     justify-content: end;
 }
+.comment-message{
+    max-height: 10rem;
+    min-height: 10rem;
+    max-width: 100%;
+    min-width: 100%;
+}
+.comment-reply-message {
+    max-height: 6.2rem;
+    min-height: 6.2rem;
+    max-width:  calc(100% - 7rem);
+    min-width: calc(100% - 7rem);    
+    border-radius: .5rem 0 0 .5rem;
+}
+.comment-reply-form {
+    height: 0;
+    overflow: hidden;
+}
+.comment-reply-form.active-reply-form{
+    height: 6.2rem;
+}
+.comment-reply-form button{
+    font-size: 2rem;
+    width: 6.5rem;
+    border-radius: 0 .5rem .5rem 0;
+}
 .post-footer .comment-content{
     text-align: justify;
 }
@@ -600,6 +622,11 @@ span i {
 .commenter-avatar .rounded {
     height: 6rem;
     width: 6rem;
+}
+.reply-toggler{
+    font-size: 1.4rem;
+    width: fit-content;
+    margin: auto;
 }
 .related-post .rounded {
     height: 8rem;
@@ -620,6 +647,9 @@ span i {
 }
 .categories-item::-webkit-scrollbar {
     width: 0;
+}
+.sidebar-column{
+    padding: 0 1rem;
 }
 #sidebar .categories a{
     padding: 1em 3em;

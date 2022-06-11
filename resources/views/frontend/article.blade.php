@@ -114,9 +114,13 @@
                                                 <pre><p class="title-secondary text-dark my-2">{{ $postComment->comment }}</p></pre>
                                             </div>
                                         </div>
+
+                                        {{--######################## I will add reply functionality letter #######################--}}
+
                                         <div class="comment-reply">
                                             
-                                            <div class="d-flex align-center">
+                                            <div class="link reply-toggler">reply on this comment</div>
+                                            {{-- <div class="d-flex align-center">
                                                 <div class="commenter-avatar pr-2">
                                                     <img src="{{ asset('storage/frontend/images/face/face2.jpg') }}" alt="" class="rounded">
                                                 </div>
@@ -124,16 +128,19 @@
                                                     <h5 class="display-2 text-capitalize">replyer name</h5>
                                                     <p class="title-secondary text-dark my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus voluptatum, pariatur nihil facere quas tenetur expedita ea amet accusamus, quo veritatis quam minus laudantium excepturi.</p>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <form action="{{ url('/articles/store-reply') }}" method="post" class="mt-2 comment-reply-form">
                                                 @csrf
                                                 <div class="d-flex justify-content-between">
                                                     <input type="text" class="form-control" name="repliedCommentId" value="{{ $postComment->id }}" hidden>
-                                                    <textarea class="form-control comment-reply-message" name="replyMessage" placeholder="Reply to this comment" required></textarea>
+                                                    <textarea class="form-control comment-reply-message" name="replyMessage" placeholder="Reply . . ." required></textarea>
                                                     <button type="submit" class="btn bg-gradient text-light"><i class="fas fa-paper-plane"></i></button>
                                                 </div>
                                             </form>
                                         </div>
+
+                                        {{--######################## I will add reply functionality letter #######################--}}
+
                                     </div>
                                 @endforeach
                             </div>
@@ -153,7 +160,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4 sidebar-column">
                     <aside id="sidebar">
                         <section class="categories">
                             <h2 class="text-dark text-capitalize text-center my-2">categories</h2>

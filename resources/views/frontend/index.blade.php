@@ -9,7 +9,7 @@
             <div class="container justify-center">
                 <h2 class="secondary-title text-capitalize text-center mb-3">Create a new post</h2>
                 <button class="btn bg-gradient display-2 text-light post-toggler">tap to write</button>
-                <form action="{{ url('/store') }}" method="POST" class="post-form" enctype="multipart/form-data">
+                <form action="{{ url('/articles/store-post') }}" method="POST" class="post-form" enctype="multipart/form-data">
                     @csrf
                     <div class="d-flex justify-content-between flex-wrap">
                         <input type="text" class="form-control my-1 post-title" name="postTitle" placeholder="Give a title to the post" required>

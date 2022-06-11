@@ -27,7 +27,7 @@ class PostController extends Controller
             $allArticles = Post::orderBy('id', 'desc')->get();
             return view('frontend.all-articles', compact('allArticles', 'allPosts', 'adminPosts', 'navBars'));
         }else{
-            return redirect('/login');
+            return redirect('/profile/login');
         }
     }
     
@@ -65,7 +65,6 @@ class PostController extends Controller
         if($sessionData !=Null){
             $navBars = Navbar::all();
             $postCategories = PostCategory::orderBy('id')->get();
-    
             $post = Post::find($post_id);
             $categoryId = $post->postCategoryId;
             $postCategory = PostCategory::find($categoryId);
@@ -99,7 +98,7 @@ class PostController extends Controller
             return view('frontend.article', compact('post', 'postAuthor', 'postCategory', 'nextPost', 'nextPostCategory', 'prevPost', 'prevPostCategory', 'postMaxId', 'postMinId', 'postComments', 'postCategories', 'navBars', 'relatedPosts', 'allPosts', 'adminPosts'));
 
         }else{
-            return redirect('/login');
+            return redirect('/profile/login');
         }
     }
 
@@ -115,7 +114,7 @@ class PostController extends Controller
             
             return view('frontend.categories', compact('categories', 'navBars', 'allPosts', 'adminPosts'));
         }else{
-            return redirect('/login');
+            return redirect('/profile/login');
         }
     }
 
@@ -131,7 +130,7 @@ class PostController extends Controller
             // $countArticles = $allArticles->count();
             return view('frontend.all-articles', compact('allArticles', 'allPosts', 'adminPosts', 'navBars'));
         }else{
-            return redirect('/login');
+            return redirect('/profile/login');
         }
     }
 
@@ -152,7 +151,7 @@ class PostController extends Controller
 
             return back();
         }else{
-            return redirect('/login');
+            return redirect('/profile/login');
         }
     }
 
@@ -170,7 +169,7 @@ class PostController extends Controller
 
             return back();
         }else{
-            return redirect('/login');
+            return redirect('/profile/login');
         }
     }
     

@@ -54,8 +54,8 @@
                                 <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
-                        <a href="{{ url('profile') }}" class="nav-link"><i class="fas fa-user"></i><span class="ml-1">{{ Session::get('userData')['userName'] }}</span></a>
-                        <a href="{{ url('logout') }}" class="nav-link"><i class="fas fa-power-off"></i><span class="ml-1">log out</span></a>
+                        <a href="{{ url('/profile') }}" class="nav-link"><i class="fas fa-user"></i><span class="ml-1">{{ Session::get('userData')['userName'] }}</span></a>
+                        <a href="{{ url('/profile/logout') }}" class="nav-link"><i class="fas fa-power-off"></i><span class="ml-1">log out</span></a>
                     </ul>
                 </div>
             </nav>
@@ -63,8 +63,8 @@
             <nav class="container navbar small-navbar">
                 <a href="{{ url('/') }}" class="nav-brand text-dark">Blog</a>
                 <ul class="navbar-nav">
-                    <a href="{{ url('/login') }}" class="nav-link"><i class="fas fa-user-lock"></i><span class="ml-1">log in</span></a>
-                    <a href="{{ url('/sign-up') }}" class="nav-link"><i class="fas fa-user-plus"></i><span class="ml-1">register</span></a>
+                    <a href="{{ url('/profile/login') }}" class="nav-link"><i class="fas fa-user-lock"></i><span class="ml-1">log in</span></a>
+                    <a href="{{ url('/profile/sign-up') }}" class="nav-link"><i class="fas fa-user-plus"></i><span class="ml-1">register</span></a>
                 </ul>
             </nav>
         @endif

@@ -22,7 +22,7 @@ class HomeController extends Controller
             $postCategories = PostCategory::orderBy('id')->get();
             return view('frontend.index', compact('limitedPosts', 'allPosts', 'adminPosts', 'postCategories', 'navBars'));
         }else{
-            return redirect('/login');
+            return redirect('/profile/login');
         }
     }
 }
